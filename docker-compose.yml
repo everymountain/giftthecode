@@ -4,3 +4,4 @@ services:
       image: everymountain/gift-server
       ports:
         - 8080:8080
+        - 11411:11411
