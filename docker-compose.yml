@@ -6,7 +6,9 @@ services:
 #        - 8080:8080
 #        - 11411:11411
 #      volume: server/src/main/resources/public:/tmp
-    gift-server:
+    everymountain:
+      depends_on:
+        - elasticsearch
       build:
         context: node
         dockerfile: Dockerfile
@@ -15,7 +17,7 @@ services:
       volumes:
         - ./node/endpoints:/app/endpoints
         - ./node/public:/app/public
-    gift-db:
+    elasticsearch:
       image: elasticsearch
       ports:
         - "9200:9200"
