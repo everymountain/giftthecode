@@ -11,7 +11,7 @@ var handleResults = function(res) {
 }
 
 var client = new elasticsearch.Client({
-  host: 'elasticsearch:9200',
+  host: 'https://search-pflag-ec4gvq53t4tkw6hwmt66jceaxu.us-east-1.es.amazonaws.com/',
   log: 'trace'
 });
 
@@ -28,7 +28,7 @@ setTimeout(function() {
         console.log('All is well');
       }
     });
-}, 10000);
+}, 0);
 
 
 p("#########################       EveryMountain        ########################")
