@@ -17,9 +17,15 @@ a {
     right: 0;
     bottom: 0;
     left: 0;
-    overflow: hidden;
+    overflow: scroll;
     z-index:1;
 }
+
+.shade {
+    position: relative;
+    z-index:3;
+}
+
 
 .content {
     position: fixed;
@@ -27,7 +33,7 @@ a {
     right: 0;
     bottom: 0;
     left: 0;
-    z-index:100000;
+    z-index:2;
     background-color:rgba(0,0,0,.7);
 }
 

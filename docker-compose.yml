@@ -7,8 +7,6 @@ services:
 #        - 11411:11411
 #      volume: server/src/main/resources/public:/tmp
     everymountain:
-      depends_on:
-        - elasticsearch
       build:
         context: node
         dockerfile: Dockerfile
@@ -17,9 +15,3 @@ services:
       volumes:
         - ./node/endpoints:/app/endpoints
         - ./node/public:/app/public
-    elasticsearch:
-      image: elasticsearch
-      ports:
-        - "9200:9200"
-        - "9300:9300"
-
