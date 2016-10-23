@@ -1,5 +1,6 @@
-// TODO Upload the file with a random id
-// TODO Use that same id to save the bio.
+// TODO Add phone number
+// TODO Add video URL option
+
 
 var url = 'http://localhost/api';
 var log = console.log;
@@ -50,6 +51,7 @@ angular.module("EveryMountain", ["angularRandomString"])
     self.uploadComplete = false;
     self.profileId = null;
     self.profilePicPath = "";
+    self.mentorYoutubeUrl = "";
 
 
     self.getCardUrl = function(card) {
@@ -86,6 +88,12 @@ angular.module("EveryMountain", ["angularRandomString"])
 
     self.isPictureCard = function(card) {
         return card.type == 'picture';
+    };
+
+    self.disallowMentorSubmit = function() {
+        console.log("self.uploadComplete ", self.uploadComplete )
+        console.log("self.mentorYoutubeUrl ", self.mentorYoutubeUrl )
+        return !(self.uploadComplete || self.mentorYoutubeUrl);
     };
 
     $scope.fileNameChanged = function(element) {
@@ -167,30 +175,41 @@ angular.module("EveryMountain", ["angularRandomString"])
     self.uploadBio = function() {
         console.log("Uploading bio");
 
-        $http.put(url + '/bios/bio/' + self.profileId, {name: $("#mentorName").val(), bio: $("#mentorBio").val()}).then(function (res) {
+        var card = {
+            name: $("#mentorName").val(),
+            bio: $("#mentorBio").val(),
+            type: self.mentorYoutubeUrl ? 'video' : 'picture',
+            src: self.profilePicPath,
+        };
+
+        var videoId = "";
+        var videoUrl = self.mentorYoutubeUrl;
+        if (videoUrl) {
+            var dotIndex = videoUrl.lastIndexOf("/");
+            videoId = videoUrl.substr(dotIndex + 1);
+            var qIndex = videoUrl.lastIndexOf("?");
+            if (qIndex >= 0) {
+                videoId = videoUrl.substr(qIndex + 1);
+            }
+            url: "https://www.youtube.com/embed/"
+
+            card.videoId = videoId;
+            card.url = "https://www.youtube.com/embed/" + videoId;
+        }
+
+
+
+        $http.put(url + '/bios/bio/' + self.profileId, card).then(function (res) {
 
             // Example of a search
 
-            self.cards.unshift(
-                addCard($("#mentorName").val(), $("#mentorBio").val(), 'picture', self.profilePicPath)
-            );
+            self.cards.unshift(card);
 
             console.log(res.data);
 
             $("#becomeAMemberModal").modal("hide");
         });
     };
-
-
-    function addCard(name, bio, type, src) {
-        var card = {
-            name : name,
-            bio : bio,
-            type : type,
-            src : src
-        };
-        return card;
-    }
 
 
     (function getCards(pageToken) {
@@ -244,10 +263,20 @@ angular.module("EveryMountain", ["angularRandomString"])
         $http.post(url + '/search', {
             index : 'bios',
         }).then(function(response) {
+            console.log("Loaded " + response.data.length + " items");
+
             response.data.forEach(function(item) {
                 var src = item._source;
                 // console.log("search result", src);
-                addCard(src.name, src.bio)
+                var card = {
+                    name : src.name,
+                    bio : src.bio,
+                    type : src.type,
+                    src : src.src,
+                    videoId : src.videoId,
+                    url : src.url
+                };
+                self.cards.unshift(card);
             });
         });
     })();
