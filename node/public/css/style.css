@@ -14,6 +14,16 @@ body {
     /*background-image:url('images/logo.png');*/
     z-index:500;
     opacity:.5;
+    animation: heartbeat 3.9s infinite;
+}
+
+.squad {
+    position:absolute;
+    left:4em;
+    top:.7em;
+    font-size:4em;
+    font-family: 'Lato', sans-serif;
+    color:#333;
 }
 
 a {
@@ -34,7 +44,7 @@ a {
     cursor:pointer;
     font-size:2em;
     border-radius:.5em;
-    border: 2px solid #ccc;
+    border: 2px solid #DDD;
     background-color:rgba(0,0,0,.5);
     position:absolute;
     top:3%;
@@ -42,7 +52,6 @@ a {
     color:white;
     z-index:500;
     padding:1em;
-    box-shadow:0px 0px 5px 6px rgba(255, 204, 168, 0.5);
 }
 
 .becomeAMentor:hover {
@@ -66,6 +75,7 @@ a {
     z-index:2;
     background-color:rgba(0,0,0,.5);
     overflow: hidden;
+    padding:0 5em;
 }
 
 .helloworld {
@@ -97,7 +107,12 @@ a {
     min-height:450px;
 }
 
-
+.blurb {
+    color:white;
+    font-size:1.5em;
+    text-align:justify;
+    padding-bottom:1em;
+}
 
 
 
@@ -107,4 +122,11 @@ a {
 
 #upload-input {
     display: none;
+}
+
+@keyframes heartbeat {
+    0%   { transform: scale(1) }
+    94%  { transform: scale(1) }
+    97%  { transform: scale(1.05) }
+    100% { transform: scale(1) }
 }

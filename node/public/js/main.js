@@ -56,7 +56,7 @@ angular.module("EveryMountain", ["angularRandomString"])
 
 
     self.getCardUrl = function(card) {
-        return card.url + "?rel=0&showinfo=0&autoplay=0&loop=1";
+        return card.url + "?rel=0&showinfo=0&loop=1";
     }
 
     self.getCardVolume = function(card) {
@@ -66,6 +66,10 @@ angular.module("EveryMountain", ["angularRandomString"])
     self.showCallModal = function(card) {
         console.log("Loading call modal")
         $("#callModal").modal('show');
+        $("#callModalNameHolder").text(card.name);
+        var pn = $("#phoneNumber");
+        pn.attr('href', 'callto://+' + card.phoneNumber);
+        pn.text(card.phoneNumber);
     };
 
     self.showBecomeAMemberModal = function() {
@@ -73,7 +77,6 @@ angular.module("EveryMountain", ["angularRandomString"])
     };
 
     self.openFileUploadDialog = function() {
-        console.log("Clicked")
         $('#upload-input').click();
         $('.progress').attr('value', '0');
         self.uploadComplete = false;
@@ -177,6 +180,7 @@ angular.module("EveryMountain", ["angularRandomString"])
         console.log("Uploading bio");
 
         var card = {
+
             name: $("#mentorName").val(),
             bio: $("#mentorBio").val(),
             type: self.mentorYoutubeUrl ? 'video' : 'picture',
@@ -199,7 +203,9 @@ angular.module("EveryMountain", ["angularRandomString"])
             card.url = "https://www.youtube.com/embed/" + videoId;
         }
 
-
+        if (!self.profileId) {
+            self.profileId = randomString(20);
+        }
 
         $http.put(url + '/bios/bio/' + self.profileId, card).then(function (res) {
 
