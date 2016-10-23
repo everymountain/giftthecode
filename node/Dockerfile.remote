@@ -1,9 +1,9 @@
 FROM everymountain/express
 
-VOLUME /app/public
-VOLUME /app/endpoints
 EXPOSE 3000
 
+COPY public /app/public
+COPY endpoints /app/endpoints
 COPY bin /app/bin
 COPY package.json /app
 WORKDIR /app

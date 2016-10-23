@@ -29,6 +29,28 @@ a {
     z-index:0;
 }
 
+.becomeAMentor {
+    transition: all .1s ease-in-out;
+    cursor:pointer;
+    font-size:2em;
+    border-radius:.5em;
+    border: 2px solid #ccc;
+    background-color:rgba(0,0,0,.5);
+    position:absolute;
+    top:3%;
+    right:5%;
+    color:white;
+    z-index:500;
+    padding:1em;
+    box-shadow:0px 0px 5px 6px rgba(255, 204, 168, 0.5);
+}
+
+.becomeAMentor:hover {
+    transform: scale(1.05);
+    color: #c9ffdf;
+}
+
+
 .shade {
     position: relative;
     z-index:1;
@@ -42,7 +64,7 @@ a {
     bottom: 0;
     left: 0;
     z-index:2;
-    background-color:rgba(0,0,0,.3);
+    background-color:rgba(0,0,0,.5);
     overflow: hidden;
 }
 

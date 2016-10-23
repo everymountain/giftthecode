@@ -51,8 +51,8 @@ angular.module("EveryMountain", [])
         return 0;
     }
 
-    self.showModal = function(card) {
-        $(".modal").modal('show');
+    self.showCallModal = function(card) {
+        $("#callModal").modal('show');
         self.cards.forEach(
             function(card) {
                 $("#" + card.id).mute();
@@ -60,7 +60,10 @@ angular.module("EveryMountain", [])
         );
     };
 
-    var videosLoaded = 0;
+    self.showBecomeAMemberModal = function() {
+        $("#becomeAMemberModal").modal('show');
+
+    };
 
     (function getCards(pageToken) {
 
