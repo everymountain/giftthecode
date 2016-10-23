@@ -52,6 +52,7 @@ angular.module("EveryMountain", ["angularRandomString"])
     self.profileId = null;
     self.profilePicPath = "";
     self.mentorYoutubeUrl = "";
+    self.mentorPhoneNumber = "";
 
 
     self.getCardUrl = function(card) {
@@ -94,6 +95,10 @@ angular.module("EveryMountain", ["angularRandomString"])
         console.log("self.uploadComplete ", self.uploadComplete )
         console.log("self.mentorYoutubeUrl ", self.mentorYoutubeUrl )
         return !(self.uploadComplete || self.mentorYoutubeUrl);
+    };
+
+    self.hasPhoneNumber = function(card) {
+        return !!card.phoneNumber;
     };
 
     $scope.fileNameChanged = function(element) {
@@ -180,6 +185,7 @@ angular.module("EveryMountain", ["angularRandomString"])
             bio: $("#mentorBio").val(),
             type: self.mentorYoutubeUrl ? 'video' : 'picture',
             src: self.profilePicPath,
+            phoneNumber : self.mentorPhoneNumber
         };
 
         var videoId = "";
@@ -240,7 +246,8 @@ angular.module("EveryMountain", ["angularRandomString"])
                     var card = {
                         url : 'https://www.youtube.com/embed/' + item.contentDetails.videoId,
                         name : item.snippet.title,
-                        bio : item.snippet.description
+                        bio : item.snippet.description,
+                        phoneNumber : self.mentorPhoneNumber
                     };
                     // log(item.contentDetails.videoId);
 
@@ -274,7 +281,8 @@ angular.module("EveryMountain", ["angularRandomString"])
                     type : src.type,
                     src : src.src,
                     videoId : src.videoId,
-                    url : src.url
+                    url : src.url,
+                    phoneNumber : src.phoneNumber
                 };
                 self.cards.unshift(card);
             });
