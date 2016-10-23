@@ -48,11 +48,12 @@ angular.module("EveryMountain", ["angularRandomString"])
     self.cards = [];
     self.fileUpload = null;
     self.uploadComplete = false;
-    self.profilePicUpload = "";
+    self.profileId = null;
+    self.profilePicPath = "";
 
 
     self.getCardUrl = function(card) {
-        return card.url + "?rel=0&autoplay=0&loop=1";
+        return card.url + "?rel=0&showinfo=0&autoplay=0&loop=1";
     }
 
     self.getCardVolume = function(card) {
@@ -77,6 +78,14 @@ angular.module("EveryMountain", ["angularRandomString"])
         $('#upload-input').click();
         $('.progress').attr('value', '0');
         self.uploadComplete = false;
+    };
+
+    self.isVideoCard = function(card) {
+        return !self.isPictureCard(card);
+    };
+
+    self.isPictureCard = function(card) {
+        return card.type == 'picture';
     };
 
     $scope.fileNameChanged = function(element) {
@@ -132,8 +141,9 @@ angular.module("EveryMountain", ["angularRandomString"])
                                     self.uploadComplete = true;
                                     setTimeout(function() {
                                         $scope.$apply(function() {
-                                            self.profilePicUpload = "images/uploads/" + userId + extension;
-                                            
+                                            self.profileId = userId;
+                                            self.profilePicPath = "images/uploads/" + userId + extension;
+
                                         });
                                     }, 1000);
                                 });
@@ -157,13 +167,12 @@ angular.module("EveryMountain", ["angularRandomString"])
     self.uploadBio = function() {
         console.log("Uploading bio");
 
-
-        $http.post(url + '/bios/bio/', {name: $("#mentorName").val(), bio: $("#mentorBio").val()}).then(function (res) {
+        $http.put(url + '/bios/bio/' + self.profileId, {name: $("#mentorName").val(), bio: $("#mentorBio").val()}).then(function (res) {
 
             // Example of a search
 
             self.cards.unshift(
-                addCard($("#mentorName").val(), $("#mentorBio").val())
+                addCard($("#mentorName").val(), $("#mentorBio").val(), 'picture', self.profilePicPath)
             );
 
             console.log(res.data);
@@ -173,74 +182,12 @@ angular.module("EveryMountain", ["angularRandomString"])
     };
 
 
-
-    // self.uploadPhoto = function() {
-    //     var policyUrl = "https://2vyiz17pcf.execute-api.us-east-1.amazonaws.com/prod/pflagUploadPolicy2";
-    //     $http.post(policyUrl).then(function(res) {
-    //         log(res.data);
-    //         // console.log(res)
-    //         // if (res && res.data && res.data.fields) {
-    //         //     var policy = res.data.fields;
-    //         //
-    //         //     var options = new FileUploadOptions();
-    //         //     var photoNum = res.data.photoCount;
-    //         //     options.fileName = "img" + photoNum + ".jpg";
-    //         //     options.params = {
-    //         //         "key": loginSvc.getUserId() + "/${filename}",
-    //         //         "acl": "public-read",
-    //         //         "Content-Type": "image/jpeg",
-    //         //         "x-amz-algorithm": policy["x-amz-algorithm"],
-    //         //         "x-amz-credential": policy["x-amz-credential"],
-    //         //         "x-amz-date": policy["x-amz-date"],
-    //         //         "x-amz-signature": policy["x-amz-signature"],
-    //         //         "policy": policy["policy"]
-    //         //     };
-    //         //
-    //         //     alert("Photo will upload, this may take some time");
-    //         //
-    //         //     var ft = new FileTransfer();
-    //         //     ft.upload(imageUri, "https://party-revolution.s3.amazonaws.com/",
-    //         //         function success(r) {
-    //         //             console.log("Code = " + r.responseCode);
-    //         //             console.log("Response = " + r.response);
-    //         //             console.log("Sent = " + r.bytesSent);
-    //         //             posSvc.getPos().then(function (pos) {
-    //         //                 console.log("Have position");
-    //         //
-    //         //                 $http.post("https://2vyiz17pcf.execute-api.us-east-1.amazonaws.com/prod/addPhoto", {
-    //         //                     userId: loginSvc.getUserId(),
-    //         //                     photoNum: photoNum,
-    //         //                     lat: pos.lat,
-    //         //                     lng: pos.lng
-    //         //                 }).then(function(res) {
-    //         //                     console.log("Add photo response:");
-    //         //                     console.log(res);
-    //         //                     callback(res.data)
-    //         //                 })
-    //         //             }, function() {
-    //         //                 alert("GPS must be enabled to upload photos")
-    //         //             })
-    //         //         },
-    //         //         function fail(error) {
-    //         //             console.log(error);
-    //         //             console.log("upload error code " +  error.code);
-    //         //             console.log("upload error source " + error.source);
-    //         //             console.log("upload error target " + error.target);
-    //         //         },
-    //         //         options
-    //         //     )
-    //         // }
-    //     })
-    //
-    // };
-    // self.uploadPhoto();
-
-
-
-    function addCard(name, bio) {
+    function addCard(name, bio, type, src) {
         var card = {
             name : name,
-            bio : bio
+            bio : bio,
+            type : type,
+            src : src
         };
         return card;
     }
