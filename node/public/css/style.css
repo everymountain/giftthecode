@@ -1,8 +1,8 @@
 body {
 
     height:100%;
-    padding-left: 2%;
-    padding-right: 2%;
+    /*padding-left: 2%;*/
+    /*padding-right: 2%;*/
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -11,7 +11,7 @@ body {
     left:1em;
     margin-top:1em;
     margin-bottom:1em;
-    background-image:url('images/logo.png');
+    /*background-image:url('images/logo.png');*/
     z-index:500;
     opacity:.5;
 }
@@ -94,4 +94,16 @@ a {
 .card {
     background-color:#061117;
     color:white;
+}
+
+
+
+
+
+#profilePicUpload {
+    max-width:20em;
+}
+
+#upload-input {
+    display: none;
 }
