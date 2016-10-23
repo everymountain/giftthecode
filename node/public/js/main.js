@@ -2,7 +2,7 @@
 // TODO Add video URL option
 
 
-var url = 'http://localhost/api';
+var url = '/api';
 var log = console.log;
 
 
@@ -64,12 +64,8 @@ angular.module("EveryMountain", ["angularRandomString"])
     }
 
     self.showCallModal = function(card) {
+        console.log("Loading call modal")
         $("#callModal").modal('show');
-        self.cards.forEach(
-            function(card) {
-                $("#" + card.id).mute();
-            }
-        );
     };
 
     self.showBecomeAMemberModal = function() {

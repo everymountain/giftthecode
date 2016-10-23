@@ -94,6 +94,7 @@ a {
 .card {
     background-color:#061117;
     color:white;
+    min-height:450px;
 }
 
 
