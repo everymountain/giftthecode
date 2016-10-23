@@ -1,10 +1,19 @@
 body {
 
-  height:100%;
-  padding: 50px;
-  font-family: 'Open Sans', sans-serif;
-  z-index:0;
+    height:100%;
+    padding-left: 2%;
+    padding-right: 2%;
+    font-family: 'Open Sans', sans-serif;
+}
 
+.logo {
+    position:relative;
+    left:1em;
+    margin-top:1em;
+    margin-bottom:1em;
+    background-image:url('images/logo.png');
+    z-index:500;
+    opacity:.5;
 }
 
 a {
@@ -17,24 +26,24 @@ a {
     right: 0;
     bottom: 0;
     left: 0;
-    overflow: scroll;
-    z-index:1;
+    z-index:0;
 }
 
 .shade {
     position: relative;
-    z-index:3;
+    z-index:1;
 }
 
 
 .content {
-    position: fixed;
+    position: relative;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     z-index:2;
-    background-color:rgba(0,0,0,.7);
+    background-color:rgba(0,0,0,.3);
+    overflow: hidden;
 }
 
 .helloworld {
@@ -43,13 +52,24 @@ a {
 }
 
 .video {
-  z-index:-1;
+  z-index:3;
   position: fixed;
   top: 50%; left: 50%;
-  z-index: 1;
   min-width: 100%;
   min-height: 100%;
   width: auto;
   height: auto;
   transform: translate(-50%, -50%);
+}
+
+.modal-backdrop {
+    z-index:4;
+}
+.modal, .modal-dialog {
+    z-index:1000;
+}
+
+.card {
+    background-color:#061117;
+    color:white;
 }

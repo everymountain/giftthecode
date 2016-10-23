@@ -14,51 +14,58 @@
 </head>
 <body ng-controller="GroundCtrl as ctrl">
 
+    <img src="images/logo.png" class="logo" />
+
+    <div class="row">
+
+    </div>
+    <div class="needHelp">About us</div>
+
+
     <div class="fullscreen-bg">
         <video width="100" height="100" autoplay muted loop class="video" id="bgVideo">
             <source src="video/video.mp4" type="video/mp4">
         </video>
         <div class="shade"></div>
+    </div>
 
-        <div class="container-fluid content">
-            <br><br><br><br><br><br><br><br>
 
-            <div class="row">
-                <div class="col-md-3" ng-repeat="card in ctrl.cards">
-                    <div class="card">
-                        <iframe class="card-img-top" width="100%" height="250" id="{{card.id}}" ng-src="{{ctrl.getCardUrl(card)}}" volume="{{ctrl.getCardVolume(card)}}" frameborder="0" allowfullscreen></iframe>
-                        <div class="card-block">
-                            <h4 class="card-title">{{card.name}}</h4>
-                            <p class="card-text">{{card.bio}}</p>
-                            <a href="#" class="btn btn-outline-success" ng-click="ctrl.showModal(card)">Call <i class="fa fa-phone" aria-hidden="true"></i></a>
-                        </div>
+    <div class="container-fluid content">
+        <br><br><br><br><br><br><br><br>
+        <div class="row">
+            <div class="col-md-2" ng-repeat="card in ctrl.cards">
+                <div class="card">
+                    <iframe class="card-img-top" width="100%" height="250" id="{{card.id}}" ng-src="{{ctrl.getCardUrl(card)}}" volume="{{ctrl.getCardVolume(card)}}" frameborder="0" allowfullscreen></iframe>
+                    <div class="card-block">
+                        <h4 class="card-title">{{card.name}}</h4>
+                        <p class="card-text">{{card.bio}}</p>
+                        <a href="#" class="btn btn-outline-success" ng-click="ctrl.showModal(card)">Call <i class="fa fa-phone" aria-hidden="true"></i></a>
                     </div>
                 </div>
-
             </div>
+
         </div>
-
-        <div class="modal fade">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4 class="modal-title">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>One fine body&hellip;</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-
     </div>
+
+    <div class="modal fade">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Call</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
 
     <script src="js/main.js"></script>
