@@ -39,7 +39,6 @@ angular.module("EveryMountain", [])
 .controller("GroundCtrl", ["$http", function($http) {
     var self = this;
 
-    self.world = "World"
     self.cards = [];
 
 
